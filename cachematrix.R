@@ -1,5 +1,4 @@
-#The first function, makeVector creates a special "vector", 
-#which is really a list containing a function to
+#The first function, makeVector creates a special "vector", which is really a list containing a function to
 #set the value of the matrix
 #get the value of the matrix
 #set the value of the inverse
@@ -7,6 +6,7 @@
 
 makeCacheMatrix <- function(x = matrix()) {
   m <- NULL
+  
   set <- function(y) {
     x <<- y
     m <<- NULL
@@ -14,6 +14,7 @@ makeCacheMatrix <- function(x = matrix()) {
   get <- function() x
   setinverse <- function(inverse) m <<- inverse
   getinverse <- function() m
+  
   list(set = set, get = get,
        setinverse = setinverse,
        getinverse = getinverse)
@@ -25,6 +26,7 @@ makeCacheMatrix <- function(x = matrix()) {
 #If so, it gets the inverse from the cache and skips the computation. 
 #Otherwise, it calculates the inverse of the data and sets the value
 #of the inverse in the cache via the setinverse function.
+
 cacheSolve <- function(x, ...) {
   ## Return a matrix that is the inverse of 'x'
   m <- x$getinverse()
@@ -33,6 +35,8 @@ cacheSolve <- function(x, ...) {
     return(m)
   }
   data <- x$get()
+  
+  #the solve function calculates the inverse of the matrix(non singular)
   m <- solve(data, ...)
   x$setinverse(m)
   m
